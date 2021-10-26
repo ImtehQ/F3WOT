@@ -1,6 +1,8 @@
 using F3WOT.Business;
+using F3WOT.Business.Interfaces;
 using F3WOT.Business.Models;
-using System;
+using F3WOT.Business.Readers;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace F3WOT.Tests
@@ -8,15 +10,20 @@ namespace F3WOT.Tests
     public class UnitTest1
     {
         [Fact]
-        public void Test1()
+        public void TestNotNull_GetNuFeedFromUrl()
         {
-            string[] feedUrls = new string[] { "https://www.nu.nl/rss/Tech" };
-            IStrategy strategy = new StrategyA();
-            UselessStrategyPattern usp = new UselessStrategyPattern(strategy);
+            string nuRssUrl = @"https://www.nu.nl/rss/Tech" ;
 
-            Feed[] feedDataArray = usp.DoStuffOrSomethingIDK(feedUrls);
+            IFragileRssFeedReaderStrategyPattern nuStrategy = new NuFeedReader();
 
-            Assert.Single(feedDataArray);
+
+            FragileRssFeedReaderStrategyPattern FragileReader = 
+                new FragileRssFeedReaderStrategyPattern(nuStrategy);
+
+            var t = Task.Run(() => FragileReader.ReadUrlAsync(nuRssUrl));
+            t.Wait();
+            
+            Assert.NotNull(t.Result);
 
         }
     }

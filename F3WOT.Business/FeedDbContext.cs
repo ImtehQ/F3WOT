@@ -5,7 +5,7 @@ namespace F3WOT.Business
 {
     public class FeedDbContext : DbContext
     {
-        public DbSet<Feed> Feeds {  get; set; }
+        public DbSet<NuFeed> Feeds {  get; set; }
         public FeedDbContext()
         {
 

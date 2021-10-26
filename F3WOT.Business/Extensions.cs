@@ -1,25 +1,24 @@
 ﻿using F3WOT.Business.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace F3WOT.Business
 {
     public static class Extensions
     {
+
+
         public static void Add<T>(this List<T> list, T data)
         {
             if(data != null)
                 list.Add(data);
         }
 
-        public static Feed ToFeed(this XmlNodeList xmlNodes)
+        public static NuFeed ToFeed(this XmlNodeList xmlNodes)
         {
-            Feed feed = new Feed();
+            NuFeed feed = new NuFeed();
             foreach (XmlNode rssNode in xmlNodes)
             {
                 rssNode.FillObjectWithXmlNode(ref feed);
@@ -27,7 +26,7 @@ namespace F3WOT.Business
             return feed;
         }
 
-        public static void FillObjectWithXmlNode(this XmlNode node, ref Feed target)
+        public static void FillObjectWithXmlNode(this XmlNode node, ref NuFeed target)
         {
             if (node.HasChildNodes == false)
                 return;
